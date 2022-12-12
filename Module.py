@@ -4,16 +4,17 @@ import csv
 
 
 #Matthew Lacey
-def FetchWord():
-  f = open("Words.txt", "r")
-  words = f.readlines()
-  f.close()
+def fetchWord():
+  with open('Words.csv') as Raw:
+    Data = csv.reader(Raw, delimiter=',')
+    Data = list(Data)
+  Row = (random.choice(Data))
 
-  return (random.choice(words)).rstrip("\n")
+  return Row[0],Row[1]
 
 
 #Matthew Lacey
-def Orbfuscate(Word):
+def obfuscate(Word):
   return ("-" * len(Word))
 
 
@@ -36,9 +37,7 @@ def CheckWord(Word, WordGuessed, OrbfuscatedWord):
         Word.split()
         OrbfuscatedWord = [*OrbfuscatedWord]
         OrbfuscatedWord[Counter] = Word[Counter]
-
     return "".join(OrbfuscatedWord)
-
   else:
     return OrbfuscatedWord
 
@@ -52,8 +51,6 @@ def InputValidation():
     else:
       print("Please only enter letters.")
 
-  if Word.isalpha == True:
-    return Word
   while Word.isalpha == False:
     Word = input("Guess a letter: ")
 
